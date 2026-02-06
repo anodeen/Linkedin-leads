@@ -1,24 +1,12 @@
-from .messaging import MessageDraft, MessageDraftGenerator, MessageGenerationControls
 from .models import DataSource, InboundLead, IngestLeadsResponse, Lead
-from .scoring import ICPRuleConfig, LeadScoreResult, RuleBasedScorer
 from .store import LeadStore
 
 
 class LeadIngestionService:
-    """PRD Step 1-3: ingestion, scoring, and controlled message draft generation."""
+    """Step 1 service: compliance-first ingestion from official/vetted sources only."""
 
-    def __init__(
-        self,
-        store: LeadStore | None = None,
-        scorer: RuleBasedScorer | None = None,
-        drafter: MessageDraftGenerator | None = None,
-    ) -> None:
+    def __init__(self, store: LeadStore | None = None) -> None:
         self.store = store or LeadStore()
-        self.scorer = scorer or RuleBasedScorer()
-        self.drafter = drafter or MessageDraftGenerator()
-
-    def configure_icp(self, config: ICPRuleConfig) -> None:
-        self.scorer = RuleBasedScorer(config=config)
 
     def ingest(self, provider_name: str, leads: list[InboundLead]) -> IngestLeadsResponse:
         if len(provider_name.strip()) < 2:
@@ -41,23 +29,3 @@ class LeadIngestionService:
 
     def list_leads(self) -> list[Lead]:
         return self.store.list_all()
-
-    def score_lead(self, lead_id: int) -> LeadScoreResult:
-        lead = self.store.get_by_id(lead_id)
-        if lead is None:
-            raise ValueError(f"lead_id {lead_id} not found")
-
-        inbound = InboundLead(
-            full_name=lead.full_name,
-            title=lead.title,
-            company=lead.company,
-            profile_url=lead.profile_url,
-            source=lead.source,
-        )
-        return self.scorer.score_lead(inbound)
-
-    def generate_message_draft(self, lead_id: int, controls: MessageGenerationControls) -> MessageDraft:
-        lead = self.store.get_by_id(lead_id)
-        if lead is None:
-            raise ValueError(f"lead_id {lead_id} not found")
-        return self.drafter.generate(lead=lead, controls=controls)
