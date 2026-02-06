@@ -2,19 +2,17 @@
 
 This document turns the reviewed PRD into execution phases and tracks what has been started.
 
-## Step 1 — Compliance-first lead ingestion (completed)
+## Step 1 — Compliance-first lead ingestion (started)
 - Build ingestion API that only accepts **official API** or **vetted provider** sources.
 - Keep scraping out of the customer-facing flow.
-- Deliver persisted lead records.
+- Deliver health check and persisted lead records.
 
-**Status:** ✅ Completed in repository service layer.
+**Status:** ✅ In progress and bootstrapped in this repository.
 
-## Step 2 — ICP-configurable rule-based scoring (completed)
+## Step 2 — ICP-configurable rule-based scoring
 - Add ICP rule configuration model.
 - Implement deterministic scoring with transparent rule breakdown.
-- Expose score service method and explanation metadata.
-
-**Status:** ✅ Completed in repository service layer.
+- Expose score API and score explanation metadata.
 
 ## Step 3 — LLM draft generation with controls
 - Add message generation endpoint with tone/template/CTA controls.
