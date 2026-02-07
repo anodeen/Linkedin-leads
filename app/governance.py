@@ -26,9 +26,3 @@ class AuditLog:
 
     def list_events(self) -> list[AuditEvent]:
         return list(self._events)
-
-
-    def purge_older_than(self, cutoff) -> int:
-        before = len(self._events)
-        self._events = [event for event in self._events if event.created_at >= cutoff]
-        return before - len(self._events)
