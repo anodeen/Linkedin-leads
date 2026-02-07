@@ -29,23 +29,3 @@ class LeadStore:
     def list_all(self) -> list[Lead]:
         with self._lock:
             return list(self._items)
-
-    def get_by_id(self, lead_id: int) -> Lead | None:
-        with self._lock:
-            for item in self._items:
-                if item.id == lead_id:
-                    return item
-            return None
-
-    def delete_by_id(self, lead_id: int) -> bool:
-        with self._lock:
-            before = len(self._items)
-            self._items = [item for item in self._items if item.id != lead_id]
-            return len(self._items) != before
-
-
-    def purge_older_than(self, cutoff) -> int:
-        with self._lock:
-            before = len(self._items)
-            self._items = [item for item in self._items if item.created_at >= cutoff]
-            return before - len(self._items)

@@ -59,14 +59,3 @@ class CRMOutcomeSync:
         if lead_id is None:
             return list(self._records)
         return [record for record in self._records if record.lead_id == lead_id]
-
-    def purge_lead(self, lead_id: int) -> int:
-        before = len(self._records)
-        self._records = [record for record in self._records if record.lead_id != lead_id]
-        return before - len(self._records)
-
-
-    def purge_older_than(self, cutoff) -> int:
-        before = len(self._records)
-        self._records = [record for record in self._records if record.captured_at >= cutoff]
-        return before - len(self._records)
