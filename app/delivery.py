@@ -67,8 +67,3 @@ class DeliveryTelemetry:
         if lead_id is None:
             return list(self._events)
         return [event for event in self._events if event.lead_id == lead_id]
-
-    def purge_lead(self, lead_id: int) -> int:
-        before = len(self._events)
-        self._events = [event for event in self._events if event.lead_id != lead_id]
-        return before - len(self._events)
