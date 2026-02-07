@@ -29,10 +29,3 @@ class LeadStore:
     def list_all(self) -> list[Lead]:
         with self._lock:
             return list(self._items)
-
-    def get_by_id(self, lead_id: int) -> Lead | None:
-        with self._lock:
-            for item in self._items:
-                if item.id == lead_id:
-                    return item
-            return None
