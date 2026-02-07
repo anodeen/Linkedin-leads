@@ -2,32 +2,25 @@
 
 This document turns the reviewed PRD into execution phases and tracks what has been started.
 
-## Step 1 — Compliance-first lead ingestion (completed)
+## Step 1 — Compliance-first lead ingestion (started)
 - Build ingestion API that only accepts **official API** or **vetted provider** sources.
 - Keep scraping out of the customer-facing flow.
-- Deliver persisted lead records.
+- Deliver health check and persisted lead records.
 
-**Status:** ✅ Completed in repository service layer.
+**Status:** ✅ In progress and bootstrapped in this repository.
 
-## Step 2 — ICP-configurable rule-based scoring (completed)
+## Step 2 — ICP-configurable rule-based scoring
 - Add ICP rule configuration model.
 - Implement deterministic scoring with transparent rule breakdown.
-- Expose score service method and explanation metadata.
+- Expose score API and score explanation metadata.
 
-**Status:** ✅ Completed in repository service layer.
-
-## Step 3 — LLM draft generation with controls (completed: deterministic scaffold)
-- Add message generation method with tone/template/CTA controls.
+## Step 3 — LLM draft generation with controls
+- Add message generation endpoint with tone/template/CTA controls.
 - Return source-backed personalization fields and confidence markers.
-- Keep implementation deterministic now, ready to swap with LLM provider later.
 
-**Status:** ✅ Completed as a deterministic service scaffold with controls + evidence metadata.
-
-## Step 4 — Mandatory human approval before sending (completed)
-- Add approval workflow entities and service methods.
+## Step 4 — Mandatory human approval before sending
+- Add approval workflow entities and endpoints.
 - Block send operation unless an approved revision exists.
-
-**Status:** ✅ Completed with draft submission/review and send-guard enforcement.
 
 ## Step 5 — One outbound channel and telemetry
 - Add one send channel integration (email-first).
