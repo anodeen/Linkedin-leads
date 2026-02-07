@@ -72,3 +72,10 @@ This document turns the reviewed PRD into execution phases and tracks what has b
 - Surface DSAR + retention execution indicators for readiness checks.
 
 **Status:** ✅ Completed with service-level compliance snapshot aggregation.
+
+
+## Step 12 — Deployment packaging (completed)
+- Add deployable HTTP app entrypoint and container runtime configuration.
+- Provide Docker and Compose setup for local/prod-style deployment.
+
+**Status:** ✅ Completed with FastAPI server + Docker packaging.

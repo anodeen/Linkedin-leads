@@ -15,6 +15,7 @@ We have started the product build from the PRD roadmap with:
 - **Step 9**: DSAR-style deletion propagation across lead data and related workflow records.
 - **Step 10**: retention policy sweep for aged records with audit logging.
 - **Step 11**: compliance posture snapshot reporting for governance controls.
+- **Step 12**: deployment packaging with FastAPI server + Docker.
 
 See `docs/IMPLEMENTATION_PLAN.md` for the full step-by-step plan.
 
@@ -22,3 +23,18 @@ See `docs/IMPLEMENTATION_PLAN.md` for the full step-by-step plan.
 ```bash
 pytest
 ```
+
+
+## Deploy
+### Docker
+```bash
+docker build -t linkedin-leads:latest .
+docker run --rm -p 8000:8000 linkedin-leads:latest
+```
+
+### Docker Compose
+```bash
+docker compose up --build
+```
+
+API health endpoint: `GET http://localhost:8000/health`
