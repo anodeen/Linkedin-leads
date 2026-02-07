@@ -56,14 +56,7 @@ class ApprovalWorkflow:
         return item
 
     def is_send_allowed(self, lead_id: int) -> bool:
-        return self.get_latest_approved(lead_id) is not None
-
-    def get_latest_approved(self, lead_id: int) -> DraftApproval | None:
-        approved = [
-            item
+        return any(
+            item.lead_id == lead_id and item.status == ApprovalStatus.APPROVED
             for item in self._items.values()
-            if item.lead_id == lead_id and item.status == ApprovalStatus.APPROVED
-        ]
-        if not approved:
-            return None
-        return max(approved, key=lambda item: item.revision_id)
+        )
